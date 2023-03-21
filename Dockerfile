@@ -1,4 +1,5 @@
 FROM php:8.0-cli
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
-CMD [ "php", "./public/index.php" ]
+EXPOSE 80
+CMD [ "php", -S localhost:80]
