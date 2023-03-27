@@ -55,7 +55,7 @@ class User extends Model {
     public static function login($id) {
         $db = static::getDB();
 
-        $stmt = $db->prepare('SELECT FROM articles WHERE articles.id = ? LIMIT 1');
+        $stmt = $db->prepare('SELECT * FROM articles WHERE articles.id = ? LIMIT 1');
 
         $stmt->execute([$id]);
 
