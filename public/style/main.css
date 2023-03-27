@@ -144,18 +144,21 @@ a.active {
 .head-div {
   border-top: solid 1px #eceff0; }
 
-.btn-cv1 {
-  border-radius: 3px;
-  border: solid 1px #ea2c5a;
-  background-color: #ea2c5a;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 20px;
-  width: 100%; }
+  .btn-cv1 {
+    border-radius: 3px;
+    border: solid 1px #ea2c5a;
+    background-color: #ea2c5a;
+    color: #ffffff;
+    font-size: 100%;
+    font-weight: 500;
+    padding: 20px;
+    min-width: 200px;
+  }
+  
   .btn-cv1:hover {
     color: #ea2c5a;
-    background-color: #ffffff; }
+    background-color: #ffffff;
+  }
 
 /*
 * General Styles END
