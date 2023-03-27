@@ -1011,7 +1011,7 @@ video {
   .articlelist .articleitem {
     min-height: 100px; }
     .articlelist .articleitem img {
-      width: 100%; } }
+      width:100%; } }
   @media only screen and (min-width: 100px) and (max-width: 767px) and (min-width: 768px) {
     .articlelist .articleitem .v-views {
       padding-bottom: 30px; } }

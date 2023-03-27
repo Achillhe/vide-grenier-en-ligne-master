@@ -11,6 +11,8 @@ use \Core\View;
 use Exception;
 use http\Env\Request;
 use http\Exception\InvalidArgumentException;
+use App\Utility\Mail;
+use App\Models\User as UserModel;
 
 /**
  * User controller
@@ -114,6 +116,7 @@ class User extends \Core\Controller
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'email' => $user['email'],
             );
 
             return true;
@@ -156,6 +159,33 @@ class User extends \Core\Controller
         header ("Location: /");
 
         return true;
+    }
+
+    public function passwordForgottenAction(){
+        
+        if($_SERVER['REQUEST_METHOD'] == "GET"){
+            View::renderTemplate('User/forgotten.html');
+        }else{
+            $password = UserModel::resetPassword($_POST["email"]);
+        Mail::sendMail($_POST["email"], "Votre nouveau mot de passe est ".$password, "Votre nouveau mot de passe !");
+        header("location:/login");
+        
+        }
+    }
+
+    /**
+     * permet à l'utilisateur de paramétrer un nouveau mot de passe
+     */
+    public function resetPasswordAction(){
+        
+        if($_SERVER['REQUEST_METHOD'] == "GET"){
+            View::renderTemplate('User/reset.html');
+        }else{
+            $password = UserModel::resetPasswordByUser($_POST["password"]);
+        
+            header("location:/");
+        
+        }
     }
 
 }
