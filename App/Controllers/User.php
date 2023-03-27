@@ -33,7 +33,7 @@ class User extends \Core\Controller
             $this->login($f);
 
             // Si login OK, redirige vers le compte
-            header('Location: /account');
+            header('Location: /index');
         }
 
         View::renderTemplate('User/login.html');
@@ -56,6 +56,9 @@ class User extends \Core\Controller
             $this->register($f);
             // TODO: Rappeler la fonction de login pour connecter l'utilisateur
             $this->login($f);
+
+            header('Location:/index');
+            exit;
         }
 
         View::renderTemplate('User/register.html');
