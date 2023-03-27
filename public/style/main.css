@@ -117,7 +117,8 @@ ul.dropdown-menu {
   ul.dropdown-menu li {
     border-bottom: solid 1px #eceff0; }
     ul.dropdown-menu li a {
-      padding: 14px 16px; }
+      padding: 14px 16px;
+      cursor: pointer; }
       ul.dropdown-menu li a i {
         padding-right: 5px;
         font-size: 19px; }
