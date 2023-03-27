@@ -17,30 +17,36 @@ class Product extends \Core\Controller
      * @return void
      */
     public function indexAction()
-    {
+{
 
-        if(isset($_POST['submit'])) {
+    if(isset($_POST['submit'])) {
 
-            try {
-                $f = $_POST;
+        try {
+            $f = $_POST;
 
-                // TODO: Validation
+            // TODO: Validation
 
-                $f['user_id'] = $_SESSION['user']['id'];
-                $id = Articles::save($f);
+            $f['user_id'] = $_SESSION['user']['id'];
+            $id = Articles::save($f);
 
-                $pictureName = Upload::uploadFile($_FILES['picture'], $id);
-
-                Articles::attachPicture($id, $pictureName);
-
-                header('Location: /product/' . $id);
-            } catch (\Exception $e){
-                    var_dump($e);
+            // Vérification de l'extension du fichier
+            $fileExtension = pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION);
+            if (!in_array($fileExtension, ['jpg', 'png'])) {
+                throw new \Exception('Invalid file type. Only JPG and PNG files are allowed.');
             }
-        }
 
-        View::renderTemplate('Product/Add.html');
+            $pictureName = Upload::uploadFile($_FILES['picture'], $id);
+
+            Articles::attachPicture($id, $pictureName);
+
+            header('Location: /product/' . $id);
+        } catch (\Exception $e){
+                var_dump($e);
+        }
     }
+
+    View::renderTemplate('Product/Add.html');
+}
 
     /**
      * Affiche la page d'un produit

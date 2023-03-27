@@ -12,11 +12,10 @@ use App\Utility;
  * City Model:
  */
 class Cities extends Model {
-
     public static function search($str) {
         $db = static::getDB();
 
-        $stmt = $db->prepare('SELECT ville_id FROM villes_france WHERE ville_nom_reel LIKE :query');
+        $stmt = $db->prepare('SELECT ville_id, ville_nom_reel FROM villes_france WHERE ville_nom_reel LIKE :query');
 
         $query = $str . '%';
 
@@ -24,6 +23,6 @@ class Cities extends Model {
 
         $stmt->execute();
 
-        return $stmt->fetchAll(\PDO::FETCH_COLUMN, 0);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

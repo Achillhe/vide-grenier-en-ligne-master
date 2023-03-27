@@ -37,7 +37,7 @@
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="e2">Ville</label>
+                                    <label for="e3">Ville</label>
                                     <input class="form-control cityAutoComplete" type="text" autocomplete="off"/>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e3">Image</label>
-                                    <input type="file" class="form-control" name="picture" id="e3" rows="3"/>
+                                    <input type="file" class="form-control" required name="picture" id="e3" rows="3"/>
                                 </div>
                             </div>
                         </div>
@@ -68,22 +68,22 @@
 {% endblock body %}
 
 {% block javascript %}
-    <script type="text/javascript">
-        $('.cityAutoComplete').autoComplete({
-            resolver: 'custom',
-            events: {
-                search: function (qry, callback) {
-                    // let's do a custom ajax call
-                    $.ajax(
-                        '/api/cities',
-                        {
-                            data: { 'query': qry}
-                        }
-                    ).done(function (res) {
-                        callback(res)
-                    });
-                }
+<script type="text/javascript">
+    $('.cityAutoComplete').autoComplete({
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    '/api/cities',
+                    {
+                        data: { 'query': qry}
+                    }
+                ).done(function (res) {
+                    callback(res)
+                });
             }
-        });
-    </script>
+        }
+    });
+</script>
 {% endblock %}
