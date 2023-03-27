@@ -32,7 +32,7 @@ class Config
      * Database password
      * @var string
      */
-    const DB_PASSWORD = '';
+    const DB_PASSWORD = 'root';
 
     /**
      * Show or hide error messages on screen

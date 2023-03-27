@@ -67,6 +67,16 @@
                                 </div>
                                 {% endfor %}
                             </div>
+                            <div>
+                                <h2>
+                                    Vos informations
+                                </h2>
+                                <ul>
+                                    <li>Email: {{ user.email }}</li>
+                                    <li>Nom d'utilisateur: {{ user.username }}</li>
+                                    <a href="/reset">Modifier votre mot de passe</a>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <!-- /Featured Videos -->
