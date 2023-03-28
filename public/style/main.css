@@ -725,7 +725,7 @@ video {
     display: -webkit-flex;
     display: flex; }
 .b-article .v-img {
-  height: 200px;
+  height: 350px;
   border-radius: 2px;
   position: relative; }
   .b-article .v-img img {
@@ -1092,7 +1092,7 @@ video {
         color: #ea2c5a; }
 
 .cb-content {
-  width: 130% !important; }
+  width: 100%; }
 
 /*
 * Content Index END
