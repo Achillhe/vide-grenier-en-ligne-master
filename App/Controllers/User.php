@@ -30,7 +30,7 @@ class User extends \Core\Controller
 
             if ($this->login($f)) {
                 // Si login OK, redirige vers le compte
-                header('Location: /index');
+                header('Location: /account');
                 exit();
             } else {
                 // Sinon, affiche un message d'erreur et redirige vers la même page
@@ -61,7 +61,7 @@ class User extends \Core\Controller
             
             $this->login($f);
 
-            header('Location:/index');
+            header('Location:/account');
             exit;
         }
 
