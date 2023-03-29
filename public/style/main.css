@@ -161,6 +161,15 @@ a.active {
     background-color: #ffffff;
   }
 
+  .error-message {
+    background-color: #ffe3e3;
+    border: 1px solid #ff6b6b;
+    color: #ff6b6b;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+
 /*
 * General Styles END
 */
@@ -2421,7 +2430,7 @@ footer {
       color: #7e7e7e; }
   .edit-page .u-area {
     text-align: center;
-    padding-top: 65px;
+    padding-top: 40px;
     padding-bottom: 20px; }
     .edit-page .u-area .u-btn {
       margin-top: 0; }
@@ -2433,7 +2442,7 @@ footer {
     padding-top: 90px;
     padding-bottom: 50px; }
     .upload-page .u-area.mt-small {
-      padding-top: 20px; }
+      padding-top: 0px; }
     .upload-page .u-area i {
       font-size: 80px; }
     .upload-page .u-area .u-text1 {

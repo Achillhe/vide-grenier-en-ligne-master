@@ -16,7 +16,7 @@
     <!-- ///channel -->
 
     <div class="container mt-30">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form id="myForm" action="" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="u-form">
@@ -50,15 +50,14 @@
                             </div>
                         </div>
                     </div>
-
+                    {% if error_message %}
+                        <div class="error-message">{{ error_message }}</div>
+                    {% endif %}
                     <div class="u-area mt-small">
                         <form action="#" method="post">
                             <button name="submit" class="btn btn-primary u-btn">Valider</button>
                         </form>
                     </div>
-                    {% if error_message %}
-                        <div class="alert alert-danger">{{ error_message }}</div>
-                    {% endif %}
                     <div class="u-terms">
                         <p>En soumettant votre article vous acceptez les <a href="#">conditions générales</a> de Vide Grenier en
                             ligne.</p>
@@ -88,5 +87,6 @@
                 }
             }
         });
+
     </script>
 {% endblock %}

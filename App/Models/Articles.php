@@ -151,4 +151,16 @@ class Articles extends Model {
 
         $stmt->execute();
     }
+
+    public static function remove($id){
+        $db = static::getDB();
+
+        $stmt = $db->prepare('
+            DELETE from articles
+
+            WHERE articles.id = ? 
+            ');
+
+        $stmt->execute([$id]);
+    }
 }

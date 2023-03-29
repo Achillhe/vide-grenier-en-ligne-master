@@ -35,6 +35,7 @@ $router->add('logout', ['controller' => 'User', 'action' => 'logout', 'private' 
 $router->add('account', ['controller' => 'User', 'action' => 'account', 'private' => true]);
 $router->add('product', ['controller' => 'Product', 'action' => 'index', 'private' => true]);
 $router->add('forgotten', ['controller' => 'User', 'action' => 'passwordForgotten']);
+$router->add('contact', ['controller' => 'Product', 'action' => 'contact']);
 $router->add('reset', ['controller' => 'User', 'action' => 'resetPassword']);
 $router->add('product/{id:\d+}', ['controller' => 'Product', 'action' => 'show']);
 $router->add('{controller}/{action}');

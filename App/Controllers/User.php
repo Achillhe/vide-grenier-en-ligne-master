@@ -2,15 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Config;
-use App\Model\UserRegister;
 use App\Models\Articles;
 use App\Utility\Hash;
-use App\Utility\Session;
 use \Core\View;
 use Exception;
-use http\Env\Request;
-use http\Exception\InvalidArgumentException;
 use App\Utility\Mail;
 use App\Models\User as UserModel;
 
