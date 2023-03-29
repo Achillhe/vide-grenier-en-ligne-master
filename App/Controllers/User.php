@@ -25,15 +25,19 @@ class User extends \Core\Controller
      */
     public function loginAction()
     {
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
             $f = $_POST;
 
-            // TODO: Validation
-
-            $this->login($f);
-
-            // Si login OK, redirige vers le compte
-            header('Location: /index');
+            if ($this->login($f)) {
+                // Si login OK, redirige vers le compte
+                header('Location: /index');
+                exit();
+            } else {
+                // Sinon, affiche un message d'erreur et redirige vers la même page
+                $error_message = "L'email ou le mot de passe est incorrect. Veuillez réessayer.";
+                View::renderTemplate('User/login.html', ['error_message' => $error_message]);
+                exit();
+            }
         }
 
         View::renderTemplate('User/login.html');
@@ -54,7 +58,7 @@ class User extends \Core\Controller
             // validation
 
             $this->register($f);
-            // TODO: Rappeler la fonction de login pour connecter l'utilisateur
+            
             $this->login($f);
 
             header('Location:/index');
@@ -172,7 +176,7 @@ class User extends \Core\Controller
         }else{
             $password = UserModel::resetPassword($_POST["email"]);
         Mail::sendMail($_POST["email"], "Votre nouveau mot de passe est ".$password, "Votre nouveau mot de passe !");
-        header("location:/login");
+        header("location:/");
         
         }
     }

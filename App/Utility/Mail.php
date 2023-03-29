@@ -19,7 +19,7 @@
      * @param string $recv
      * @param string $content
      */
-    static function sendMail($recv="videgrenierenligne@outlook.fr", $content="hello", $title="Vos produits ont intéressé quelqu'un !"){
+    static function sendMail($recv="videgrenier-enligne@outlook.fr", $content="hello", $title="Vos produits ont intéressé quelqu'un !"){
 
 
    $mail = new PHPMailer(true);
