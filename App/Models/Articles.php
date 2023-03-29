@@ -28,7 +28,7 @@ class Articles extends Model {
             case 'views':
                 $query .= ' ORDER BY articles.views DESC';
                 break;
-            case 'data':
+            case 'date':
                 $query .= ' ORDER BY articles.published_date DESC';
                 break;
             case '':
@@ -108,7 +108,7 @@ class Articles extends Model {
         $stmt = $db->prepare('
             SELECT *, articles.id as id FROM articles
             INNER JOIN users ON articles.user_id = users.id
-            ORDER BY published_date DESC LIMIT 10');
+            ORDER BY published_date DESC LIMIT 50');
 
         $stmt->execute();
 
@@ -151,8 +151,4 @@ class Articles extends Model {
 
         $stmt->execute();
     }
-
-
-
-
 }

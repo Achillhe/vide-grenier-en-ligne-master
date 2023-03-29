@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Articles;
 use App\Utility\Upload;
 use \Core\View;
+use Exception;
 
 /**
  * Product controller
@@ -19,13 +20,18 @@ class Product extends \Core\Controller
     public function indexAction()
     {
 
-        if(isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
 
-            try {
-                $f = $_POST;
+            $f = $_POST;
 
-                // TODO: Validation
-
+            // Validation
+            $allowed_extensions = array('png', 'jpeg', 'jpg');
+            $picture_extension = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+            if (!in_array($picture_extension, $allowed_extensions)) {
+                $error_message = "Seules les images en .png, .jpeg et .jpg sont autorisées.";
+                View::renderTemplate('User/Add.html', ['error_message' => $error_message]);
+                exit();
+            } else {
                 $f['user_id'] = $_SESSION['user']['id'];
                 $id = Articles::save($f);
 
@@ -34,8 +40,6 @@ class Product extends \Core\Controller
                 Articles::attachPicture($id, $pictureName);
 
                 header('Location: /product/' . $id);
-            } catch (\Exception $e){
-                    var_dump($e);
             }
         }
 
@@ -54,7 +58,7 @@ class Product extends \Core\Controller
             Articles::addOneView($id);
             $suggestions = Articles::getSuggest();
             $article = Articles::getOne($id);
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             var_dump($e);
         }
 

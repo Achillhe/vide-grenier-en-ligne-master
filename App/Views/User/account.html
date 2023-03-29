@@ -40,8 +40,10 @@
                                             Plus récent <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#"><i class="cv cvicon-cv-relevant"></i> Popularité</a></li>
-                                            <li><a href="#"><i class="cv cvicon-cv-calender"></i> Plus récent</a></li>
+                                            <li><a onclick="getProductsAndRender('views')"><i
+                                                        class="cv cvicon-cv-relevant"></i> Popularité</a></li>
+                                            <li><a onclick="getProductsAndRender('date')"><i
+                                                        class="cv cvicon-cv-calender"></i> Plus récent</a></li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>
@@ -86,4 +88,24 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+    function getProductsAndRender(option = '') {
+        $.ajax({
+            url: "/api/products" + '?sort=' + option,
+        }).done(function (result) {
+            $('#articlelist').empty();
+            for (let i = 0; i < result.length; i++) {
+                renderProduct(result[i])
+            }
+        });
+    }
+
+    $( document ).ready(function() {
+        getProductsAndRender();
+    });
+</script>
 {% endblock %}

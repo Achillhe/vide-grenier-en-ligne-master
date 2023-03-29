@@ -623,7 +623,8 @@ video {
   justify-content: center; }
   .add-header h1 {
     font-size: 3rem;
-    color: white; }
+    color: white;
+    text-align: center; }
 
 .preview-article {
   height: 450px; }
