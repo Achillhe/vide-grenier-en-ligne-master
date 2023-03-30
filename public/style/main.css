@@ -645,6 +645,52 @@ video {
 /*
 * Content Index
 */
+
+.page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.cookie-policy, .privacy-policy {
+  width: 80%;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-top: 30px;
+  font-size: 16px;
+}
+
+.color-b1{
+  color: #b7135d;
+}
+
+.cookie-policy h2 {
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.cookie-policy h3, .privacy-policy h3 {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.cookie-policy p, .privacy-policy p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.cookie-policy a {
+  color: #0085a1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cookie-policy a:hover {
+  text-decoration: underline;
+}
+
 .content-wrapper {
   background-color: #fbfdfe; }
 

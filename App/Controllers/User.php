@@ -158,6 +158,7 @@ class User extends \Core\Controller
         }
 
         session_destroy();
+        setcookie('PHPSESSID', 'localhost', time() - 86400, '/');
 
         header ("Location: /");
 
@@ -171,7 +172,7 @@ class User extends \Core\Controller
         }else{
             $password = UserModel::resetPassword($_POST["email"]);
         Mail::sendMail($_POST["email"], "Votre nouveau mot de passe est ".$password, "Votre nouveau mot de passe !");
-        header("location:/");
+        header("location:/login");
         
         }
     }
