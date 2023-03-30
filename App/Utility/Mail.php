@@ -1,12 +1,18 @@
 <?php
    namespace App\Utility;
+
+
    use PHPMailer\PHPMailer\PHPMailer;
-   use PHPMailer\PHPMailer\Exception;
+
    use PHPMailer\PHPMailer\SMTP;
 
-    require 'vendor/PHPMailer-6.8.0/src/Exception.php';
-    require 'vendor/PHPMailer-6.8.0/src/PHPMailer.php';
-    require 'vendor/PHPMailer-6.8.0/src/SMTP.php';
+   use PHPMailer\PHPMailer\Exception;
+
+
+   define('__DIR', "C:/wamp64/www/vide-grenier-en-ligne-master");
+   require_once '../vendor/phpmailer/phpmailer/src/Exception.php';
+   require_once  '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+   require_once '../vendor/phpmailer/phpmailer/src/SMTP.php';
 
 
    /**
@@ -52,6 +58,9 @@
    $mail->From = "videgrenier-enligne@outlook.fr";
 
    $mail->FromName = "VideGrenier";
+
+
+   $mail->addAddress($recv);
 
    $mail->isHTML(true);
 

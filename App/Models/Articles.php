@@ -11,7 +11,8 @@ use App\Utility;
 /**
  * Articles Model
  */
-class Articles extends Model {
+class Articles extends Model
+{
 
     /**
      * ?
@@ -19,11 +20,12 @@ class Articles extends Model {
      * @return string|boolean
      * @throws Exception
      */
-    public static function getAll($filter) {
+    public static function getAll($filter)
+    {
         $db = static::getDB();
         $query = 'SELECT * FROM articles ';
 
-        switch ($filter){
+        switch ($filter) {
             case 'views':
                 $query .= ' ORDER BY articles.views DESC';
                 break;
@@ -47,15 +49,16 @@ class Articles extends Model {
      */
     public static function getOne($id) {
         $db = static::getDB();
-
+    
         $stmt = $db->prepare('
-            SELECT * FROM articles
-            INNER JOIN users ON articles.user_id = users.id
+            SELECT articles.id, articles.name, articles.description, articles.published_date, articles.user_id, articles.views, articles.picture, users.username, users.email, users.password, users.salt, users.is_admin 
+            FROM articles 
+            LEFT JOIN users ON articles.user_id = users.id 
             WHERE articles.id = ? 
             LIMIT 1');
-
+    
         $stmt->execute([$id]);
-
+    
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
@@ -65,7 +68,8 @@ class Articles extends Model {
      * @return string|boolean
      * @throws Exception
      */
-    public static function addOneView($id) {
+    public static function addOneView($id)
+    {
         $db = static::getDB();
 
         $stmt = $db->prepare('
@@ -82,7 +86,8 @@ class Articles extends Model {
      * @return string|boolean
      * @throws Exception
      */
-    public static function getByUser($id) {
+    public static function getByUser($id)
+    {
         $db = static::getDB();
 
         $stmt = $db->prepare('
@@ -101,7 +106,8 @@ class Articles extends Model {
      * @return string|boolean
      * @throws Exception
      */
-    public static function getSuggest() {
+    public static function getSuggest()
+    {
         $db = static::getDB();
 
         $stmt = $db->prepare('
@@ -122,7 +128,8 @@ class Articles extends Model {
      * @return string|boolean
      * @throws Exception
      */
-    public static function save($data) {
+    public static function save($data)
+    {
         $db = static::getDB();
 
         $stmt = $db->prepare('INSERT INTO articles(name, description, user_id, published_date) VALUES (:name, :description, :user_id,:published_date)');
@@ -139,7 +146,8 @@ class Articles extends Model {
         return $db->lastInsertId();
     }
 
-    public static function attachPicture($articleId, $pictureName){
+    public static function attachPicture($articleId, $pictureName)
+    {
         $db = static::getDB();
 
         $stmt = $db->prepare('UPDATE articles SET picture = :picture WHERE articles.id = :articleid');
@@ -151,7 +159,8 @@ class Articles extends Model {
         $stmt->execute();
     }
 
-    public static function remove($id){
+    public static function remove($id)
+    {
         $db = static::getDB();
 
         $stmt = $db->prepare('
