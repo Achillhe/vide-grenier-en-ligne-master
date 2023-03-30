@@ -21,7 +21,6 @@ class Articles extends Model {
      */
     public static function getAll($filter) {
         $db = static::getDB();
-
         $query = 'SELECT * FROM articles ';
 
         switch ($filter){

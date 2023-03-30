@@ -57,11 +57,12 @@
 
 {% block javascript %}
     <script type="text/javascript">
-
+console.log('page index');
         function getProductsAndRender(option = ''){
             $.ajax({
                 url: "/api/products" + '?sort=' + option,
             }).done(function(result) {
+                console.log(result);
                 $('#articlelist').empty();
                 for(let i = 0; i < result.length; i++){
                     renderProduct(result[i])
