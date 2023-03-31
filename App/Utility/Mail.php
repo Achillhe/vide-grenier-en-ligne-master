@@ -3,17 +3,10 @@
 
 
    use PHPMailer\PHPMailer\PHPMailer;
-
    use PHPMailer\PHPMailer\SMTP;
-
    use PHPMailer\PHPMailer\Exception;
 
-
-   define('__DIR', "C:/wamp64/www/vide-grenier-en-ligne-master");
-   require_once '../vendor/phpmailer/phpmailer/src/Exception.php';
-   require_once  '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-   require_once '../vendor/phpmailer/phpmailer/src/SMTP.php';
-
+   require '../../vendor/autoload.php';
 
    /**
     * Mail
@@ -25,62 +18,32 @@
      * @param string $recv
      * @param string $content
      */
-    static function sendMail($recv="videgrenier-enligne@outlook.fr", $content="hello", $title="Vos produits ont intéressé quelqu'un !"){
-
-
-   $mail = new PHPMailer(true);
-
-   $mail->SMTPOptions = array(
-    'tls' => array(
-    'verify_peer' => false,
-    'verify_peer_name' => false,
-    'allow_self_signed' => true
-    )
-    );
-    $mail->CharSet = 'UTF-8';
-
-   $mail->SMTPDebug = 2;
-
-   $mail->isSMTP();
-
-   $mail->Host = 'smtp.office365.com';
-
-   $mail->SMTPAuth = true;
-
-   $mail->Username = "videgrenier-enligne@outlook.fr";
-
-   $mail->Password = "videgrenier1234";
-
-   $mail->SMTPSecure = "tls";
-
-   $mail->Port = 587;
-
-   $mail->From = "videgrenier-enligne@outlook.fr";
-
-   $mail->FromName = "VideGrenier";
-
-
-   $mail->addAddress($recv);
-
-   $mail->isHTML(true);
-
-   $mail->Subject = $title;
-
-   $mail->Body =  $content;
-
-   $mail->AltBody = "This is the plain text version of the email content";
-
-
-   try {
-
-       $mail->send();
-
-       echo "Message has been sent successfully";
-
-   } catch (Exception $e) {
-
-       echo "Mailer Error: " . $mail->ErrorInfo;
-
-   }
-    }}
+    public static function sendMail($subject, $body) {
+        // Instantiation de PHPMailer
+        $mail = new PHPMailer(true);
+    
+        try {
+            // Configuration de SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.office365.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'videgrenier-enligne@outlook.fr';  // Adresse Gmail
+            $mail->Password = 'videgrenier1234';  // Mot de passe Gmail
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+    
+            // Configuration de l'email
+            $mail->setFrom('videgrenier-enligne@outlook.fr', 'Vide Grenier');  // Adresse email expéditeur
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+    
+            // Envoi de l'email
+            $mail->send();
+            echo 'Email envoyé avec succès';
+        } catch (Exception $e) {
+            echo "Erreur lors de l'envoi de l'email : {$mail->ErrorInfo}";
+        }
+    }
+}
 ?>

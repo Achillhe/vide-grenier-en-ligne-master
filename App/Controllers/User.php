@@ -172,7 +172,7 @@ class User extends \Core\Controller
         }else{
             $password = UserModel::resetPassword($_POST["email"]);
         Mail::sendMail($_POST["email"], "Votre nouveau mot de passe est ".$password, "Votre nouveau mot de passe !");
-        header("Location:  /login");
+        header("location:/");
         
         }
     }

@@ -3,15 +3,12 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-
 <div class="content-wrapper single-article mt-40">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-xs-12 col-sm-12">
                 <div class="preview-article">
-                    <img
-                            src="{{ ('/storage/' ~ article.picture) }}"/>
-
+                    <img src="{{ ('/storage/' ~ article.picture) }}" />
                 </div>
                 <h1><a href="#">{{article.name}}</a></h1>
 
@@ -38,8 +35,8 @@
                     </div>
                     <div class="u-area mt-small">
 
-                        <a name="submit" href="./contact?product_id={{article.id}}&user_id={{article.user_id}}" class="btn btn-primary u-btn">Contacter {{article.username}}</a>
-
+                        <a name="submit" href="./contact?product_id={{article.id}}&user_id={{article.user_id}}"
+                            class="btn btn-primary u-btn">Contacter {{article.username}}</a>
                     </div>
                 </div>
             </div>
