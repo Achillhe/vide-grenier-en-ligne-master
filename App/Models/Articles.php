@@ -111,9 +111,10 @@ class Articles extends Model
         $db = static::getDB();
 
         $stmt = $db->prepare('
-            SELECT *, articles.id as id FROM articles
-            INNER JOIN users ON articles.user_id = users.id
-            ORDER BY published_date DESC LIMIT 50');
+        SELECT *, articles.id as id FROM articles
+        INNER JOIN users ON articles.user_id = users.id
+        ORDER BY RAND()
+        LIMIT 50');
 
         $stmt->execute();
 

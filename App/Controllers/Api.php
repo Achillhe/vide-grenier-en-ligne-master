@@ -33,7 +33,8 @@ class Api extends \Core\Controller
      *
      * @throws Exception
      */
-    public static function CitiesAction(){
+    public static function CitiesAction()
+    {
 
         $cities = Cities::search($_GET['query']);
 
@@ -41,7 +42,8 @@ class Api extends \Core\Controller
         echo json_encode($cities);
     }
 
-    public function RemoveAction(){
+    public function RemoveAction()
+    {
 
         $id = $_GET['id'];
         echo ('remove article from data base with id : ');
@@ -50,7 +52,6 @@ class Api extends \Core\Controller
 
         header('Content-Type: application/json');
         echo json_encode($id);
-
     }
 
     

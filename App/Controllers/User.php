@@ -122,7 +122,6 @@ class User extends \Core\Controller
                 'email' => $user['email'],
                 'is_admin' => $user['is_admin'],
             );
-
             return true;
 
         } catch (Exception $ex) {

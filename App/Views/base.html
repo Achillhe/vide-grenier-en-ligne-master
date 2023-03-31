@@ -130,6 +130,14 @@
                             <p>Mon compte</p>
                         </a>
                     </li>
+                    {% if user.is_admin == 1 %}
+                    <li>
+                        <a href="/admin">
+                            <i class="cv cvicon-cv-play-circle"></i>
+                            <p>Espace admin</p>
+                        </a>
+                    </li>
+                    {% endif %}
 
                 </ul>
             </div>
@@ -206,9 +214,9 @@
     <!-- /footer -->
     <script src="/js/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="vendor\autoComplete.js-10.2.7\src\autoComplete.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
-    <script
-        src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
     <script src="/js/custom.js"></script>
 
     {% block javascript %}

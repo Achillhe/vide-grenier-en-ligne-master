@@ -42,6 +42,7 @@ class User extends Model
         $stmt->execute([$id]);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        
     }
 
     public static function getByLogin($login)

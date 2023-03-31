@@ -5,16 +5,6 @@
 {% block body %}
 <div class="channel">
 
-    <div class="container-fluid account-header">
-        <div class="row">
-            <h1>
-                {{ user.username }}
-            </h1>
-
-        </div>
-    </div>
-
-
     <div class="content-wrapper">
         <div class="container">
             <div class="row">
@@ -56,10 +46,11 @@
                                     <div class="b-article">
                                         <div class="v-img" style="position: relative;">
                                             <a href="{{ ('/product/' ~ article.id) }}">
-                                              <img src="{{ ('/storage/' ~ article.picture) }}" alt="">
+                                                <img src="{{ ('/storage/' ~ article.picture) }}" alt="">
                                             </a>
-                                            <button style="position: absolute; top: 0; right: 0;"><a href="/account" onclick="DeleteProduct('{{article.id}}')">X</a>
-                                          </div>
+                                            <button style="position: absolute; top: 0; right: 0;"><a href="/account"
+                                                    onclick="DeleteProduct('{{article.id}}')">X</a>
+                                        </div>
                                         <div class="v-desc">
                                             <a href="{{ ('/product/' ~ article.id) }}">{{ article.name }}</a>
                                         </div>
@@ -69,16 +60,6 @@
                                     </div>
                                 </div>
                                 {% endfor %}
-                            </div>
-                            <div>
-                                <h2>
-                                    Vos informations
-                                </h2>
-                                <ul>
-                                    <li>Email: {{ user.email }}</li>
-                                    <li>Nom d'utilisateur: {{ user.username }}</li>
-                                    <a href="/reset">Modifier votre mot de passe</a>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -105,6 +86,25 @@
             }, 1000); // rafraîchir la page après une seconde (1000 millisecondes)
         });
     }
+
+    function renderProduct($product){
+        $('<div class="col-lg-4 col-sm-6 articleitem" id="article-pattern">' +
+           '                                <div class="b-article">' +
+           '                                    <div class="v-img">' +
+           '                                        <a href="/product/'+ $product.id + '">' +
+           '                                            <img src="/storage/'+ $product.picture +'" alt=""></a>' +
+           '                                    </div>' +
+           '                                    <div class="v-desc">' +
+           '                                        <a href="/product/'+ $product.id + '">'+ $product.name+'</a>' +
+           '                                    </div>' +
+           '                                    <p>'+ $product.description.slice(0, 20) + '...</p>' +
+           '                                    <div class="v-views">' +
+           '                                        '+$product.views+' vues' +
+           '                                    </div>' +
+           '                                </div>' +
+           '</div>')
+        .appendTo($('#articlelist'));
+   }
 
     function getProductsAndRender(option = ''){
         $.ajax({
