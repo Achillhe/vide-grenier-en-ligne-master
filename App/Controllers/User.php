@@ -120,6 +120,7 @@ class User extends \Core\Controller
                 'id' => $user['id'],
                 'username' => $user['username'],
                 'email' => $user['email'],
+                'is_admin' => $user['is_admin'],
             );
 
             return true;
@@ -190,6 +191,10 @@ class User extends \Core\Controller
             header("location:/");
         
         }
+    }
+
+    public function adminAction(){
+        View::renderTemplate('User/admin.html');
     }
 
 }

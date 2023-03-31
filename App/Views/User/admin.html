@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Espace Admin{% endblock %}
+
+{% block body %}
+<div class="channel">
+
+    <div class="container-fluid account-header">
+        <div class="row">
+            <h1>
+                {{ user.username }}
+            </h1>
+
+        </div>
+    </div>
+
+
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="channel-details">
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-2 col-xs-12">
+                                <div class="c-details">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Featured Videos -->
+                    <div class="content-block">
+                        <div class="cb-header">
+                            <div class="row">
+                                <div class="col-lg-8 col-xs-6">
+                                    <div class="btn-group bg-clean">
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Plus récent <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a onclick="getProductsAndRender('views')"><i
+                                                        class="cv cvicon-cv-relevant"></i> Popularité</a></li>
+                                            <li><a onclick="getProductsAndRender('date')"><i
+                                                        class="cv cvicon-cv-calender"></i> Plus récent</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cb-content articlelist">
+                            <div class="row">
+                                {% for article in articles %}
+                                <div class=" col-lg-3 col-sm-6 articleitem">
+                                    <div class="b-article">
+                                        <div class="v-img" style="position: relative;">
+                                            <a href="{{ ('/product/' ~ article.id) }}">
+                                              <img src="{{ ('/storage/' ~ article.picture) }}" alt="">
+                                            </a>
+                                            <button style="position: absolute; top: 0; right: 0;"><a href="/account" onclick="DeleteProduct('{{article.id}}')">X</a>
+                                          </div>
+                                        <div class="v-desc">
+                                            <a href="{{ ('/product/' ~ article.id) }}">{{ article.name }}</a>
+                                        </div>
+                                        <div class="v-views">
+                                            {{article.views}} vues
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div>
+                                <h2>
+                                    Vos informations
+                                </h2>
+                                <ul>
+                                    <li>Email: {{ user.email }}</li>
+                                    <li>Nom d'utilisateur: {{ user.username }}</li>
+                                    <a href="/reset">Modifier votre mot de passe</a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Featured Videos -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+    function DeleteProduct(id) {
+        console.log('text', id);
+        $.ajax({
+            url: "/api/remove" + '?id=' + id
+        }).done(function (result) {
+            console.log('done', result);
+            setTimeout(function () {
+                location.reload();
+            }, 1000); // rafraîchir la page après une seconde (1000 millisecondes)
+        });
+    }
+
+    function getProductsAndRender(option = ''){
+        $.ajax({
+            url: "/api/products" + '?sort=' + option,
+        }).done(function(result) {
+            $('#articlelist').empty();
+            for(let i = 0; i < result.length; i++){
+                renderProduct(result[i])
+            }
+        });
+    }
+
+    $( document ).ready(function() {
+        getProductsAndRender();
+    });
+</script>
+{% endblock %}
