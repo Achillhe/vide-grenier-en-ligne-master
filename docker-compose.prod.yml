@@ -13,6 +13,7 @@ services:
           - '9000:80'
         volumes:
           - mysql_data:/var/lib/mysql
+          - ./sql/import.sql:/docker-entrypoint-initdb.d/import.sql
           
 
         
