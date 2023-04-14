@@ -10,27 +10,27 @@ services:
           MYSQL_DATABASE: videgrenierenligne
           MYSQL_ROOT_PASSWORD: "root"
         ports:
-          - '9008:80'
+          - '9000:80'
         volumes:
           - mysql_data:/var/lib/mysql
           
 
         
-    phpmyadmin_preprod:
+    phpmyadmin_production:
         image: phpmyadmin/phpmyadmin:latest
         restart: always
         ports:
-          - "9010:80"
+          - "9001:80"
         depends_on:
           - db
         environment:
           PMA_HOST: db
 
     
-    videgrenier_preprod:
+    videgrenier_production:
         image: 'videgrenier'
         ports:
-          - '8086:80'
+          - '8080:80'
         build:
           context: .
           dockerfile: Dockerfile
@@ -48,11 +48,14 @@ services:
 
         links: 
           - db:mysql
-        
-        
-
 
     
 volumes:
     mysql_data:
       external: true
+          
+
+
+       
+        
+     
