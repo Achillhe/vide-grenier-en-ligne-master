@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label for="e1">Titre</label>
                                     <input type="text" name="name" class="form-control" id="e1"
-                                           placeholder="Jeu de cartes (rare)" required>
+                                        placeholder="Jeu de cartes (rare)" required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -37,21 +37,22 @@
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="e2">Ville</label>
-                                    <input class="form-control cityAutoComplete" type="text" autocomplete="off" required/>
+                                  <label for="e2">Ville</label>
+                                  <input class="form-control cityAutoComplete" id="cityInput" type="text" autocomplete="off"/>
+                                  <div id="cityList" class="autocomplete-items"></div>
                                 </div>
-                            </div>
+                              </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e3">Image</label>
-                                    <input type="file" class="form-control" name="picture" id="e3" rows="3" required/>
+                                    <input type="file" class="form-control" name="picture" id="e3" rows="3" required />
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% if error_message %}
-                        <div class="error-message">{{ error_message }}</div>
+                    <div class="error-message">{{ error_message }}</div>
                     {% endif %}
                     <div class="u-area mt-small">
                         <form action="#" method="post">
@@ -59,7 +60,8 @@
                         </form>
                     </div>
                     <div class="u-terms">
-                        <p>En soumettant votre article vous acceptez les <a href="#">conditions générales</a> de Vide Grenier en
+                        <p>En soumettant votre article vous acceptez les <a href="#">conditions générales</a> de Vide
+                            Grenier en
                             ligne.</p>
                     </div>
                 </div>
@@ -73,20 +75,47 @@
     <script type="text/javascript">
         $('.cityAutoComplete').autoComplete({
             resolver: 'custom',
+            formatResult: function(item) {
+              return {
+                value: item.ville_id,
+                text: item.ville_nom_reel
+              };
+            },
             events: {
-                search: function (qry, callback) {
-                    // let's do a custom ajax call
-                    $.ajax(
-                        '/api/cities',
-                        {
-                            data: { 'query': qry}
-                        }
-                    ).done(function (res) {
-                        callback(res)
-                    });
+              search: function (qry, callback) {
+                console.log('searching for', qry);
+                if (qry.length < 1) {
+                  $("#cityList").empty();
+                  return;
                 }
+                $.ajax({
+                  url: '/api/cities',
+                  data: { 'query': qry},
+                  dataType: 'json'
+                }).done(function (res) {
+                  callback(res);
+                  $("#cityInput").parent().append('<div id="cityList" class="autocomplete-items"></div>');
+                  $("#cityList").empty();
+                  for (var i = 0; i < res.length; i++) {
+                    var option = $('<div>');
+                    option.attr('class', 'autocomplete-item');
+                    option.attr('data-value', res[i].ville_id);
+                    option.text(res[i].ville_nom_reel);
+                    $("#cityList").append(option);
+                  }
+                });
+              }
             }
-        });
-
+          });
+          
+          $(document).on("click", ".autocomplete-item", function(event){
+            event.preventDefault();
+            var city_id = $(this).data('value');
+            var city_name = $(this).text();
+            $("#cityInput").val(city_name);
+            var hidden = $("<input>").attr("type", "hidden").attr("name", "city_id").val(city_id);
+            $(this).parent().parent().append(hidden);
+            $("#cityList").empty();
+          });
     </script>
 {% endblock %}

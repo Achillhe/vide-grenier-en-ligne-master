@@ -1,7 +1,12 @@
 version: "3"
 services:
+<<<<<<< HEAD
     db:
         container_name: db
+=======
+    mysql_dev:
+        container_name: mysql_dev
+>>>>>>> 1291f1bef46c877e04ec26fe6072afbfe8aa1ee8
         image: 'mysql:latest'
         restart: 'always'
         environment:
@@ -10,6 +15,7 @@ services:
           MYSQL_DATABASE: videgrenierenligne
           MYSQL_ROOT_PASSWORD: "root"
         ports:
+<<<<<<< HEAD
           - '9008:80'
         volumes:
           - mysql_data:/var/lib/mysql
@@ -31,23 +37,57 @@ services:
         image: 'videgrenier'
         ports:
           - '8086:80'
+=======
+          - '8080:80'
+        volumes:
+          - ./sql/import.sql:/docker-entrypoint-initdb.d/import.sql
+        
+    phpmyadmin_dev:
+        image: phpmyadmin/phpmyadmin:latest
+        restart: always
+        ports:
+          - "8081:80"
+        depends_on:
+          - mysql_dev
+        environment:
+          PMA_HOST: mysql_dev
+    
+    videgrenier_dev:
+        image: 'videgrenier'
+        ports:
+          - '8082:80'
+>>>>>>> 1291f1bef46c877e04ec26fe6072afbfe8aa1ee8
         build:
           context: .
           dockerfile: Dockerfile
         environment:
           ALLOW_OVERRIDE: 'true'
+<<<<<<< HEAD
           # user: "root"
           # db: "mysql_production"
           # password: "root"
           MYSQL_HOST: db
+=======
+          MYSQL_HOST: mysql_dev
+>>>>>>> 1291f1bef46c877e04ec26fe6072afbfe8aa1ee8
           MYSQL_USER: webapplication
           MYSQL_PASSWORD: "cesi"
 
         depends_on:
+<<<<<<< HEAD
           - db
 
         links: 
           - db:mysql
+=======
+          - mysql_dev
+
+        links: 
+          - mysql_dev:mysql
+
+
+       
+>>>>>>> 1291f1bef46c877e04ec26fe6072afbfe8aa1ee8
         
         
 

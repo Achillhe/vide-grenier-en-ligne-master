@@ -161,6 +161,38 @@ a.active {
     background-color: #ffffff;
   }
 
+  #cityList{
+    cursor: pointer;
+  }
+
+  .autocomplete {
+    position: relative;
+  }
+  
+  .autocomplete ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+  
+  .autocomplete li {
+    border: 2px solid black;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .autocomplete li:hover {
+    background-color: #f4f4f4;
+  }
+
   .error-message {
     background-color: #ffe3e3;
     border: 1px solid #ff6b6b;

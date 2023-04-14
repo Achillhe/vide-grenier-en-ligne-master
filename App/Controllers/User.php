@@ -120,8 +120,8 @@ class User extends \Core\Controller
                 'id' => $user['id'],
                 'username' => $user['username'],
                 'email' => $user['email'],
+                'is_admin' => $user['is_admin'],
             );
-
             return true;
 
         } catch (Exception $ex) {
@@ -172,7 +172,7 @@ class User extends \Core\Controller
         }else{
             $password = UserModel::resetPassword($_POST["email"]);
         Mail::sendMail($_POST["email"], "Votre nouveau mot de passe est ".$password, "Votre nouveau mot de passe !");
-        header("Location:  /login");
+        header("location:/");
         
         }
     }
@@ -190,6 +190,10 @@ class User extends \Core\Controller
             header("location:/");
         
         }
+    }
+
+    public function adminAction(){
+        View::renderTemplate('User/admin.html');
     }
 
 }

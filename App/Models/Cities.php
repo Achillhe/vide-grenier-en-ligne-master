@@ -13,18 +13,18 @@ use App\Utility;
  */
 class Cities extends Model {
 
-    public function search($str) {
+    public static function search($str) {
         $db = static::getDB();
-
+    
         $stmt = $db->prepare('SELECT ville_id, ville_nom_reel FROM villes_france WHERE ville_nom_reel LIKE :query');
-
+    
         $query = $str . '%';
-
+    
         $stmt->bindParam(':query', $query);
-
+    
         $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_COLUMN, 0);
+    
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

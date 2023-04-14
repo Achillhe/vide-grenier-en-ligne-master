@@ -11,6 +11,7 @@
     <link rel="icon" href="/favicon.png">
 
     <title>Vide Grenier En Ligne | {% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../public/images/logo.png" />
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -74,6 +75,9 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a href="/account">Mon compte</a></li>
+                                        {% if user.is_admin == 1 %}
+                                            <li><a href="/admin">Espace admin</a></li>
+                                        {% endif %}
                                         <li><a href="/logout">Déconnexion</a></li>
                                     </ul>
                                 </div>
@@ -82,6 +86,7 @@
                         </div>
 
                         {% else %}
+
                         <div class="col-lg-2 col-sm-12 hidden-xs">
                             <div class="loginsignup pull-right">
                                 <a href="/login">Connexion</a> / <a href="/register">Inscription</a>
@@ -89,7 +94,7 @@
                             <div class="clearfix"></div>
                         </div>
 
-                        {%endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -126,6 +131,14 @@
                             <p>Mon compte</p>
                         </a>
                     </li>
+                    {% if user.is_admin == 1 %}
+                    <li>
+                        <a href="/admin">
+                            <i class="cv cvicon-cv-play-circle"></i>
+                            <p>Espace admin</p>
+                        </a>
+                    </li>
+                    {% endif %}
 
                 </ul>
             </div>
@@ -202,9 +215,9 @@
     <!-- /footer -->
     <script src="/js/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="vendor\autoComplete.js-10.2.7\src\autoComplete.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
-    <script
-        src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
     <script src="/js/custom.js"></script>
 
     {% block javascript %}
