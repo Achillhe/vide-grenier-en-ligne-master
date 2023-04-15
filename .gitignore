@@ -3,3 +3,6 @@ vendor
 composer.lock
 App/Config.php
 
+builddev.sh
+App/Config.php
+docker-compose.dev.yml
