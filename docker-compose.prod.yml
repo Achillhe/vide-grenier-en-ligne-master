@@ -1,7 +1,7 @@
 version: "3"
 services:
-    db:
-        container_name: db
+    dbprod:
+        container_name: dbprod
         image: 'mysql:latest'
         restart: 'always'
         environment:
@@ -12,7 +12,7 @@ services:
         ports:
           - '9000:80'
         volumes:
-          - mysql_data:/var/lib/mysql
+          - mysql_dataprod:/var/lib/mysql
           - ./sql/import.sql:/docker-entrypoint-initdb.d/import.sql
           
 
@@ -23,13 +23,13 @@ services:
         ports:
           - "9001:80"
         depends_on:
-          - db
+          - dbprod
         environment:
-          PMA_HOST: db
+          PMA_HOST: dbprod
 
     
     videgrenier_production:
-        image: 'videgrenier'
+        image: 'videgrenierprod'
         ports:
           - '8080:80'
         build:
@@ -40,19 +40,19 @@ services:
           # user: "root"
           # db: "mysql_production"
           # password: "root"
-          MYSQL_HOST: db
+          MYSQL_HOST: dbprod
           MYSQL_USER: webapplication
           MYSQL_PASSWORD: "cesi"
 
         depends_on:
-          - db
+          - dbprod
 
         links: 
-          - db:mysql
+          - dbprod:mysql
 
     
 volumes:
-    mysql_data:
+    mysql_dataprod:
       external: true
           
 
