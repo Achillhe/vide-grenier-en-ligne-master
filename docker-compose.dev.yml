@@ -1,7 +1,7 @@
 version: "3"
 services:
-    db:
-        container_name: db
+    dbdev:
+        container_name: dbdev
         image: 'mysql:latest'
         restart: 'always'
         environment:
@@ -12,7 +12,7 @@ services:
         ports:
           - '9005:80'
         volumes:
-          - mysql_data:/var/lib/mysql
+          - mysql_datadev:/var/lib/mysql
           - ./sql/import.sql:/docker-entrypoint-initdb.d/import.sql
 
         
@@ -22,9 +22,9 @@ services:
         ports:
           - "9002:80"
         depends_on:
-          - db
+          - dbdev
         environment:
-          PMA_HOST: db
+          PMA_HOST: dbdev
 
     
     videgrenier_dev:
@@ -39,20 +39,20 @@ services:
           # user: "root"
           # db: "mysql_production"
           # password: "root"
-          MYSQL_HOST: db
+          MYSQL_HOST: dbdev
           MYSQL_USER: webapplication
           MYSQL_PASSWORD: "cesi"
 
         depends_on:
-          - db
+          - dbdev
 
         links: 
-          - db:mysql
+          - dbdev:mysql
 
         # volumes:
         #   - ./app:/var/www/html
 
     
 volumes:
-    mysql_data:
+    mysql_datadev:
       external: true
