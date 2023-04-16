@@ -14,7 +14,11 @@ class Config
      * Database host
      * @var string
      */
+<<<<<<< HEAD
     const DB_HOST = 'dbprod';
+=======
+    const DB_HOST = 'dbpre';
+>>>>>>> develop
 
     /**
      * Database name
