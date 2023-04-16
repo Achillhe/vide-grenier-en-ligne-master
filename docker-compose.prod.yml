@@ -16,7 +16,7 @@ services:
           - ./sql/import.sql:/docker-entrypoint-initdb.d/import.sql
 
         
-    phpmyadmin_dev:
+    phpmyadmin_prod:
         image: phpmyadmin/phpmyadmin:latest
         restart: always
         ports:
@@ -27,10 +27,10 @@ services:
           PMA_HOST: dbprod
 
     
-    videgrenier_dev:
+    videgrenier_prod:
         image: 'videgrenier'
         ports:
-          - '8081:80'
+          - '8089:80'
         build:
           context: .
           dockerfile: Dockerfile
