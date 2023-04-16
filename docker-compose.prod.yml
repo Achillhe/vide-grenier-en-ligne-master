@@ -10,7 +10,7 @@ services:
           MYSQL_DATABASE: videgrenierenligne
           MYSQL_ROOT_PASSWORD: "root"
         ports:
-          - '9005:80'
+          - '9010:80'
         volumes:
           - mysql_dataprod:/var/lib/mysql
           - ./sql/import.sql:/docker-entrypoint-initdb.d/import.sql
@@ -20,7 +20,7 @@ services:
         image: phpmyadmin/phpmyadmin:latest
         restart: always
         ports:
-          - "9002:80"
+          - "9012:80"
         depends_on:
           - dbprod
         environment:
@@ -30,7 +30,7 @@ services:
     videgrenier_prod:
         image: 'videgrenier'
         ports:
-          - '8089:80'
+          - '8088:80'
         build:
           context: .
           dockerfile: Dockerfile
