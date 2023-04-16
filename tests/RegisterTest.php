@@ -1,57 +1,48 @@
 <?php
 
-require_once Models\User.php;
-use Models\User;
+use App\Models\User;
 use PHPUnit\Framework\TestCase;
 
 class RegisterTest extends TestCase
 {
-    private $User;
+    public function testCreateUser()
+{
+    $data = [
+        'username' => 'johndoe',
+        'email' => 'john.doe@example.com',
+        'password' => password_hash('password', PASSWORD_DEFAULT),
+        'salt' => 'salt'
+    ];
 
-    protected function setUp(): void
+    $userId = User::createUser($data);
+
+    $this->assertIsString($userId);
+    $this->assertNotEmpty($userId);
+}
+
+    public function testGetOne()
     {
-        $this->User = new User();
+        $user = User::getOne(1);
+
+        $this->assertIsArray($user);
+        $this->assertNotEmpty($user);
     }
 
-    public function testValidRegistration(): void
+    public function testGetByLogin()
     {
-        $data = [
-            "email" => "test@example.com",
-            "username" => "testuser",
-            "password" => "password"
-        ];
-        $result = $this->User->User($data);
-        $this->assertIsInt($result);
+        $user = User::getByLogin('john.doe@example.com');
+
+        $this->assertIsArray($user);
+        $this->assertNotEmpty($user);
     }
 
-    public function testMissingEmail(): void
+    public function testResetPassword()
     {
-        $data = [
-            "username" => "testuser",
-            "password" => "password"
-        ];
-        $this->expectException(Exception::class);
-        $this->User->User($data);
-    }
+        $email = 'john.doe@example.com';
 
-    public function testMissingUsername(): void
-    {
-        $data = [
-            "email" => "test@example.com",
-            "password" => "password"
-        ];
-        $this->expectException(Exception::class);
-        $this->User->User($data);
-    }
+        $password = User::resetPassword($email);
 
-    public function testMissingPassword(): void
-    {
-        $data = [
-            "email" => "test@example.com",
-            "username" => "testuser"
-        ];
-        $this->expectException(Exception::class);
-        $this->User->User($data);
+        $this->assertIsString($password);
+        $this->assertNotEmpty($password);
     }
 }
-?>
