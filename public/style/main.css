@@ -13,6 +13,7 @@ html, body {
 
 .test{
   background-color: red;
+  border-radius: 2px;
 }
 
 html{
