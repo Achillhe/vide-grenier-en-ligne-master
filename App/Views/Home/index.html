@@ -3,11 +3,11 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<div class="content-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
 
+<div class="content-wrapper">
+    
+    <div class="container">
+            <div class="col-lg-12">
                 <div class="content-block head-div">
                     <div class="cb-header">
                         <div class="row">
@@ -22,6 +22,18 @@
                                     <li><a href="#">Autour de moi</a></li>
                                 </ul>
                             </div>
+                            <div class="row">
+                                <div class="wrapper">
+                                    <img src="/images/cookie.png" alt="">
+                                    <div class="content">
+                                      <header>Politique de cookies</header>
+                                      <p>Ce site utilise des cookies pour vous garantir la meilleure expérience sur notre site.</p>
+                                      <div class="buttons">
+                                        <button class="item">J'accepte</button>
+                                        <a href="#" class="item">A propos</a>
+                                      </div>
+                                    </div>
+                                  </div>
                             <div class="col-lg-2 col-sm-2 col-xs-4">
                                 <div class="btn-group pull-right bg-clean">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,6 +56,7 @@
 
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -55,6 +68,21 @@
 
 {% block javascript %}
     <script type="text/javascript">
+        const cookieBox = document.querySelector(".wrapper"),
+        acceptBtn = cookieBox.querySelector("button");
+        acceptBtn.onclick = ()=>{
+          //setting cookie for 1 month, after one month it'll be expired automatically
+          document.cookie = "CookieBy=CodingNepal; max-age="+60*60*24*30;
+          if(document.cookie){ //if cookie is set
+            cookieBox.classList.add("hide"); //hide cookie box
+          }else{ //if cookie not set then alert an error
+            alert("Cookie can't be set! Please unblock this site from the cookie setting of your browser.");
+          }
+        }
+        let checkCookie = document.cookie.indexOf("CookieBy=CodingNepal"); //checking our cookie
+        //if cookie is set then hide the cookie box else show it
+        checkCookie != -1 ? cookieBox.classList.add("hide") : cookieBox.classList
+
 console.log('page index');
         function getProductsAndRender(option = ''){
             $.ajax({
