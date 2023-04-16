@@ -14,7 +14,7 @@ class Config
      * Database host
      * @var string
      */
-    const DB_HOST = 'dbpre';
+    const DB_HOST = 'localhost';
 
     /**
      * Database name
@@ -26,13 +26,13 @@ class Config
      * Database user
      * @var string
      */
-    const DB_USER = 'webapplication';
+    const DB_USER = 'root';
 
     /**
      * Database password
      * @var string
      */
-    const DB_PASSWORD = 'cesi';
+    const DB_PASSWORD = 'root';
 
     /**
      * Show or hide error messages on screen

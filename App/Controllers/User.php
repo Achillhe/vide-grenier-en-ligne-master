@@ -43,24 +43,24 @@ class User extends \Core\Controller
      */
     public function registerAction()
     {
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
             $f = $_POST;
 
-            if($f['password'] !== $f['password-check']){
-                // TODO: Gestion d'erreur côté utilisateur
+            if ($f['password'] !== $f['password-check']) {
+                $errors[] = "Les deux mots de passe ne sont pas identiques";
             }
 
             // validation
 
-            $this->register($f);
-            
-            $this->login($f);
-
-            header('Location:/account');
-            exit;
+            if (empty($errors)) {
+                $this->register($f);
+                $this->login($f);
+                header('Location:/account');
+                exit;
+            }
         }
 
-        View::renderTemplate('User/register.html');
+        View::renderTemplate('User/register.html', ['errors' => $errors ?? []]);
     }
 
     /**
@@ -81,28 +81,37 @@ class User extends \Core\Controller
     private function register($data)
     {
         try {
-            // Generate a salt, which will be applied to the during the password
-            // hashing process.
+            // Vérifier si l'email est déjà présent dans la base de données
+            $user = \App\Models\User::getByLogin($data['email']);
+            if($user) {
+                throw new Exception('Cet email est déjà utilisé.');
+            }
+    
+            // Générer un salt, qui sera appliqué lors du processus de hachage de mot de passe.
             $salt = Hash::generateSalt(32);
-
+    
             $userID = \App\Models\User::createUser([
                 "email" => $data['email'],
                 "username" => $data['username'],
                 "password" => Hash::generate($data['password'], $salt),
                 "salt" => $salt
             ]);
-
+    
             return $userID;
-
         } catch (Exception $ex) {
-            // TODO : Set flash if error : utiliser la fonction en dessous
-            /* Utility\Flash::danger($ex->getMessage());*/
+            // Gérer l'erreur et afficher un message à l'utilisateur.
+            $errors[] = $ex->getMessage();
+            View::renderTemplate('User/register.html', ['errors' => $errors ?? []]);
+            exit;
         }
     }
 
-    private function login($data){
+
+
+    private function login($data)
+    {
         try {
-            if(!isset($data['email'])){
+            if (!isset($data['email'])) {
                 throw new Exception('TODO');
             }
 
@@ -123,7 +132,6 @@ class User extends \Core\Controller
                 'is_admin' => $user['is_admin'],
             );
             return true;
-
         } catch (Exception $ex) {
             // TODO : Set flash if error
             /* Utility\Flash::danger($ex->getMessage());*/
@@ -138,7 +146,8 @@ class User extends \Core\Controller
      * @return boolean
      * @since 1.0.2
      */
-    public function logoutAction() {
+    public function logoutAction()
+    {
 
         /*
         if (isset($_COOKIE[$cookie])){
@@ -151,49 +160,54 @@ class User extends \Core\Controller
 
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
             );
         }
 
         session_destroy();
         setcookie('PHPSESSID', 'localhost', time() - 86400, '/');
 
-        header ("Location: /");
+        header("Location: /");
 
         return true;
     }
 
-    public function passwordForgottenAction(){
-        
-        if($_SERVER['REQUEST_METHOD'] == "GET"){
+    public function passwordForgottenAction()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
             View::renderTemplate('User/forgotten.html');
-        }else{
+        } else {
             $password = UserModel::resetPassword($_POST["email"]);
-        Mail::sendMail($_POST["email"], "Votre nouveau mot de passe est ".$password, "Votre nouveau mot de passe !");
-        header("location:/");
-        
+            Mail::sendMail($_POST["email"], "Votre nouveau mot de passe est " . $password, "Votre nouveau mot de passe !");
+            header("location:/");
         }
     }
 
     /**
      * permet à l'utilisateur de paramétrer un nouveau mot de passe
      */
-    public function resetPasswordAction(){
-        
-        if($_SERVER['REQUEST_METHOD'] == "GET"){
+    public function resetPasswordAction()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
             View::renderTemplate('User/reset.html');
-        }else{
+        } else {
             $password = UserModel::resetPasswordByUser($_POST["password"]);
-        
+
             header("location:/");
-        
         }
     }
 
-    public function adminAction(){
+    public function adminAction()
+    {
         View::renderTemplate('User/admin.html');
     }
-
 }
