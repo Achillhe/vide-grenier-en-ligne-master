@@ -12,8 +12,9 @@
             <div class="banner-text hidden-xs">
                 <div class="line"></div>
                 <div class="b-text">
-                    <span class="color-active">Des centaines<br> </span> <span class="color-b1">d'articles vous attendent
-                </span>
+                    <span class="color-active">Des centaines<br> </span> <span class="color-b1">d'articles vous
+                        attendent
+                    </span>
                 </div>
                 <div class="overtext">
                     Plus de 15 articles ajoutés quotidiennement
@@ -28,31 +29,40 @@
                         <div class="form-group">
                             <label for="username">Nom d'utilisateur</label>
                             <input type="text" class="form-control" id="username" name="username" required
-                                   placeholder="John Doe">
+                                placeholder="John Doe">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" name="email" required
-                                   placeholder="exemple@gmail.com">
+                                placeholder="exemple@gmail.com">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mot de passe</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" required
-                                   placeholder="**********" name="password">
+                                placeholder="**********" name="password">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword2">Votre mot de passe à nouveau</label>
                             <input type="password" class="form-control" id="exampleInputPassword2"
-                                   placeholder="**********" required name="password-check">
+                                placeholder="**********" required name="password-check">
                         </div>
                         <div class="row">
                             <div class="col-lg-7"><button type="submit" name="submit" class="btn btn-cv1">Valider
-                            </button></div>
+                                </button></div>
                             <div class="hidden-xs">
                                 <div class="col-lg-1 ortext">ou</div>
                                 <div class="col-lg-4 signuptext"><a href="/login">Connexion</a></div>
                             </div>
                         </div>
+                        {% if errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for error in errors %}
+                                <div>{{ error }}</div>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
                         <div class="visible-xs text-center mt-30">
                             <span class="signuptext"><a href="/login">Se connecter</a></span>
                         </div>
