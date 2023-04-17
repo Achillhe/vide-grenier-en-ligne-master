@@ -10,7 +10,7 @@ services:
           MYSQL_DATABASE: videgrenierenligne
           MYSQL_ROOT_PASSWORD: "root"
         ports:
-          - '9010:80'
+          - '9080:80'
         volumes:
           - mysql_dataprod:/var/lib/mysql
           - ./sql/import.sql:/docker-entrypoint-initdb.d/import.sql
