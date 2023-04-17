@@ -19,24 +19,29 @@ class User extends \Core\Controller
      * Affiche la page de login
      */
     public function loginAction()
-    {
-        if (isset($_POST['submit'])) {
-            $f = $_POST;
+{
+    if (isset($_POST['submit'])) {
+        $f = $_POST;
 
-            if ($this->login($f)) {
-                // Si login OK, redirige vers le compte
-                header('Location: /account');
-                exit();
-            } else {
-                // Sinon, affiche un message d'erreur et redirige vers la même page
-                $error_message = "L'email ou le mot de passe est incorrect. Veuillez réessayer.";
-                View::renderTemplate('User/login.html', ['error_message' => $error_message]);
-                exit();
+        if ($this->login($f)) {
+            // Si login OK, redirige vers le compte
+            if (isset($f['remember'])) {
+                // Si la case "Se souvenir de moi" a été cochée, définir un cookie de session pour prolonger la durée de vie de la session
+                $cookie_expiration = time() + 60 * 60 * 24 * 30; // expire dans 30 jours
+                setcookie('remember_me', '1', $cookie_expiration);
             }
+            header('Location: /account');
+            exit();
+        } else {
+            // Sinon, affiche un message d'erreur et redirige vers la même page
+            $error_message = "L'email ou le mot de passe est incorrect. Veuillez réessayer.";
+            View::renderTemplate('User/login.html', ['error_message' => $error_message]);
+            exit();
         }
-
-        View::renderTemplate('User/login.html');
     }
+
+    View::renderTemplate('User/login.html');
+}
 
     /**
      * Page de création de compte
